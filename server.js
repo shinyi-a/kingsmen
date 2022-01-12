@@ -5,7 +5,14 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const bcrypt = require("bcrypt");
-const port = 3000;
+require("dotenv").config();
+
+const PORT = process.env.PORT || 8000;
+const DATABASE = process.env.DATABASE;
+const MONGO_USER = process.env.MONGO_USER;
+const MONGO_PASSWORD = process.env.MONGO_PASSWORD;
+const MONGO_BASE_URL = process.env.MONGO_BASE_URL;
+const MONGO_URL = `mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_BASE_URL}/${DATABASE}?retryWrites=true&w=majority`;
 
 // MIDDLEWARE
 // body parser middleware
@@ -18,6 +25,8 @@ app.use(express.static("public"));
 // fitting room three
 const roomController = require("./controllers/room.js");
 app.use("/room", roomController);
+const usersController = require("./controllers/users.js");
+app.use("/users", usersController);
 
 // GET INDEX
 app.get("/", (req, res) => {
@@ -44,11 +53,11 @@ app.get("/seedAgents", (req, res) => {
 });
 
 // CONNECTIONS
-app.listen(port, () => {
-  console.log("listening on port: ", port);
+app.listen(PORT, () => {
+  console.log("listening on port: ", PORT);
 });
 
-mongoose.connect("mongodb://localhost:27017/kingsman", {
+mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
 });
 mongoose.connection.once("open", () => {
