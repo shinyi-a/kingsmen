@@ -12,18 +12,13 @@ router.get("/", (req, res) => {
 // post a new message
 // NOTE: as given, this only works if you have sessions working correctly
 // if you can't get sessions working correctly, see if you can modify this code so that it works even without sessions!
-router.post("/new", (req, res) => {
-  // finds user by id (based on current logged in user )
-  User.findOneAndUpdate(
-    { _id: req.session.currentUser._id },
-    // uses $push method to push the req.body.message
-    { $push: { messages: req.body.message } },
-    // callback
-    (err, foundUser) => {
-      // redirects to the room page
-      res.redirect("/room");
-    }
-  );
+router.post("/new", async (req, res) => {
+  try {
+    const createUser = await User.create(req.body);
+  } catch (error) {
+    console.log(error);
+  }
+  res.redirect("/new");
 });
 
 // EXPORT
