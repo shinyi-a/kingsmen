@@ -6,14 +6,7 @@ const User = require("../models/users.js");
 // ROUTES
 // get index
 router.get("/", (req, res) => {
-  // finds all users
-  User.find({}, (err, foundUsers) => {
-    // renders the room page
-    res.render("room/index.ejs", {
-      // passes the found users to the room page
-      users: foundUsers,
-    });
-  });
+  res.render("users/new.ejs");
 });
 
 // post a new message
