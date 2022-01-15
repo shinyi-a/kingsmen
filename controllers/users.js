@@ -2,6 +2,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/users.js");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 // ROUTES
 // get index
@@ -14,7 +16,14 @@ router.get("/", (req, res) => {
 // if you can't get sessions working correctly, see if you can modify this code so that it works even without sessions!
 router.post("/new", async (req, res) => {
   try {
-    const createUser = await User.create(req.body);
+    const createName = req.body.name;
+    const createPassword = await bcrypt.hash(req.body.password, saltRounds);
+    const createMessages = req.body.messages;
+    const createUser = await User.create({
+      createName,
+      createPassword,
+      createMessages,
+    });
   } catch (error) {
     console.log(error);
   }

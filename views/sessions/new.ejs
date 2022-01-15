@@ -23,9 +23,9 @@
               <a href="/room">fitting room three</a>
           </li>
           <!-- add your link to create a user here -->
-          <li><a href="/users">create new user</a></li>
+          <li><a href="/sessions/new">Login</a></li>
           <!-- add your link to the log in page here -->
-          <li><a href="/sessions/new">login</a></li>
+          <li></li>
           <!-- add your form button to log out here -->
           <li>
           </li>
@@ -38,8 +38,14 @@
       <img src="img/splash.jpg" alt="splash image of kingsman display window"/>
       <!-- about -->
       <div class="main-abt">
-        <h1>the modern gentleman's armour: a suit</h1>
-        As Hemingway said, "There is nothing noble in being superior to your fellow man. True nobility is being superior to your former self.""
+        <h1>Login</h1>
+        <body>
+            <form action="/sessions/new" method="POST">
+              Enter Name: <input type="text" name="name" /><br /><br />
+              Enter Password: <input type="password" name="password" /><br /><br />
+              <input type="submit" name="" value="Login" />
+            </form>
+          </body>
       </div>
     </div>
   </body>

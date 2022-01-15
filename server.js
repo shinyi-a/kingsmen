@@ -20,6 +20,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 // static files middleware
 app.use(express.static("public"));
+// session middleware
+app.use(
+  session({
+    secret: "feedmeseymour", //some random string
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 // CONTROLLERS
 // fitting room three
@@ -27,6 +35,8 @@ const roomController = require("./controllers/room.js");
 app.use("/room", roomController);
 const usersController = require("./controllers/users.js");
 app.use("/users", usersController);
+const sessionsController = require("./controllers/sessions.js");
+app.use("/sessions", sessionsController);
 
 // GET INDEX
 app.get("/", (req, res) => {
