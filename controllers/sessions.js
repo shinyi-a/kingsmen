@@ -22,7 +22,13 @@ router.get("/new", (req, res) => {
 router.post("/", async (req, res) => {
   const createSession = await User.findOne({ username: req.body.username });
   if (createSession) {
-    const vaildUser = await bcrypt.compare(req.body.password, user.password);
+    console.log(req.body.password);
+    console.log(createSession.password);
+    console.log(createSession);
+    const vaildUser = await bcrypt.compare(
+      req.body.password,
+      createSession.password
+    );
     if (vaildUser) {
       req.session.currentUser = createSession;
       res.redirect("/");
