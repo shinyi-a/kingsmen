@@ -40,7 +40,10 @@ app.use("/sessions", sessionsController);
 
 // GET INDEX
 app.get("/", (req, res) => {
-  res.render("index.ejs", {});
+  const context = {
+    currentUser: req.session.currentUser,
+  };
+  res.render("index.ejs", { currentUser: context.currentUser });
 });
 
 // SEED ROUTE

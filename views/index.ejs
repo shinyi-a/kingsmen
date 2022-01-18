@@ -19,16 +19,22 @@
       <!-- navigation -->
       <div class="header-nav">
         <ul>
-          <li>
-              <a href="/room">fitting room three</a>
-          </li>
           <!-- add your link to create a user here -->
-          <li><a href="/users">create new user</a></li>
           <!-- add your link to the log in page here -->
-          <li><a href="/sessions/new">login</a></li>
           <!-- add your form button to log out here -->
-          <li>
-          </li>
+          <li>  <% if (currentUser) { %>
+            <li>Welcome <%= currentUser.username %></li>
+            <li>
+              <a href="/room">fitting room three</a>
+            </li>
+            <li>
+              <form action="/sessions?_method=DELETE" method="POST">
+                <input type="submit" value="Log Out" class="btn-small red" />
+              </form>
+            </li>
+            <% } else { %>
+            <li><a href="/sessions/new">Log In</a></li>
+            <% } %></li>
         </ul>
       </div>
     </div>
